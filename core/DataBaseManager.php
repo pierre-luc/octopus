@@ -1,5 +1,8 @@
 <?php
-namespace core;
+namespace octopus\core;
+use octopus\app\Debug;
+use octopus\Config;
+
 /**
  * Class DataBaseManager
  * @package core
@@ -55,7 +58,7 @@ class DataBaseManager {
         $this->table = $table;
 
         // connexion à la base de donnée
-        $conf = Conf::$databases[ $this->conf ];
+        $conf = Config::$databases[ $this->conf ];
         if ( isset( DataBaseManager::$connections[ $this->conf ] ) ) {
             $this->db = DataBaseManager::$connections[ $this->conf ];
             return true;
@@ -66,13 +69,13 @@ class DataBaseManager {
                 array( PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8' )
             );
 
-            $pdo->setAttribute( PDO::ATTR_ERRMODE, Conf::$pdoDebugMode );
+            $pdo->setAttribute( PDO::ATTR_ERRMODE, Debug::$pdoDebugMode );
 
             DataBaseManager::$connections[ $this->conf ] = $pdo;
             $this->db = $pdo;
 
         } catch( PDOException $e) {
-            if ( Conf::$debug >= 1 ) {
+            if ( Debug::$debug >= 1 ) {
                 die( $e->getMessage() );
             } else {
                 die( "Impossible de se connecter à la base de données." );
@@ -163,7 +166,7 @@ class DataBaseManager {
             $pre = $this->db->prepare( $sql );
             $pre->execute();
         } catch (PDOException $e) {
-            debug($e);
+            Debug::debug($e);
         }
         return $pre->fetchAll( PDO::FETCH_OBJ );
     }
@@ -301,7 +304,7 @@ class DataBaseManager {
             $pre = $this->db->prepare( $sql );
             $pre->execute( $d );
         } catch (PDOException $e) {
-            debug($e);
+            Debug::debug($e);
         }
 
         // mémorisation de l'id du dernier élément inséré.
