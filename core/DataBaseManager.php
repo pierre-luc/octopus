@@ -166,7 +166,6 @@ class DataBaseManager {
             debug($e);
         }
         return $pre->fetchAll( PDO::FETCH_OBJ );
-
     }
 
     /**
@@ -200,7 +199,7 @@ class DataBaseManager {
      * @return mixed
      */
     public function selectFirst( $request ) {
-        return current( $this->find( $request ) );
+        return current( $this->select( $request ) );
     }
 
     /**
@@ -219,11 +218,10 @@ class DataBaseManager {
      * @return mixed
      */
     public function count( $conditions ) {
-        $res = $this->findFirst( array(
+        $res = $this->selectFirst( array(
             'fields' => 'COUNT(' . $this->primaryKey . ') as `count`',
             'conditions' => $conditions
         ));
-
         return $res->count;
     }
 
@@ -240,7 +238,6 @@ class DataBaseManager {
      *          en SQL.
      */
     public function delete( $conditions ) {
-
         // Construction de la condition WHERE
         if ( isset( $conditions ) ) {
             // si la conditions est une chaîne de caractères
@@ -257,7 +254,7 @@ class DataBaseManager {
                 $sql = implode( ' AND ', $conditions );
             }
         }
-
+        //todo requête préparée pour la suppression
         $sql = "DELETE FROM {$this->table} WHERE $sql";
         $this->db->query( $sql );
     }
