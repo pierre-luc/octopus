@@ -39,7 +39,7 @@ class DataBaseManager {
     /*
      * Mémorise la clé primaire de la table courante.
      */
-    private $primaryKey = 'id';
+    private $primaryKey;
 
     /*
      * Mémorise le dernier id lors des ajouts en base de données.
@@ -52,15 +52,19 @@ class DataBaseManager {
      *  configuration d'accès à la base de données
      * @param $table
      *  spécifie sur quelle table l'utilisateur souhaite travailler.
+     * @param $pkey
+     *  spécifie la clé primaire de la table représentée par le manager.
      */
-    public function __construct( $conf = 'default', $table = false) {
+    public function __construct( $conf = 'default', $table, $pkey = 'id') {
         $this->conf = $conf;
         $this->table = $table;
+        $this->primaryKey = $pkey;
 
         // connexion à la base de donnée
         $conf = Config::$databases[ $this->conf ];
         if ( isset( DataBaseManager::$connections[ $this->conf ] ) ) {
             $this->db = DataBaseManager::$connections[ $this->conf ];
+            // puisque la connexion existe déjà on ne continue pas plus loin.
             return true;
         }
         try {
@@ -81,6 +85,7 @@ class DataBaseManager {
                 die( "Impossible de se connecter à la base de données." );
             }
         }
+        return true; // par homogénéité
     }
 
     /**
