@@ -90,7 +90,7 @@ class DataBaseManager {
 
     /**
      * Retourne un tableau contenant la réponse de la requête select.
-     * @param array $req
+     * @param array $request
      *  $req est un tableau regroupant différents critères pour construire
      *  la requête SQL à exécuter.
      *    Les champs possible pour ce tableau sont :
@@ -178,7 +178,7 @@ class DataBaseManager {
 
     /**
      * Retourne la première réponse de la requête select.
-     * @param array $req
+     * @param array $request
      *  $req est un tableau regroupant différents critères pour construire
      *  la requête SQL à exécuter.
      *    Les champs possible pour ce tableau sont :
