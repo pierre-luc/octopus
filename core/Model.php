@@ -61,4 +61,91 @@ class Model {
         }
         $this->dbm->save( $data );
     }
+
+    /**
+     * Retourne un tableau contenant les résultats de la recherche.
+     * @param array $request
+     *  $req est un tableau regroupant différents critères pour construire
+     *  la requête SQL à exécuter.
+     *    Les champs possible pour ce tableau sont :
+     *      @field string fields
+     *          spécifie un champs de la table à selectionner.
+     *
+     *      @field array fields
+     *          spécifie les champs de la table à selectionner.
+     *
+     *      @field array conditions
+     *          spécifie les conditions sur la requête à effectuer.
+     *          Il s'agit d'une suite de AND.
+     *
+     *      @field string conditions
+     *          spécifie les conditions sur la requête à effectuer.
+     *          Il appartient à l'utilisateur de rédiger les conditions
+     *          en SQL.
+     *
+     *      @field string order
+     *          spécifie l'ordre de tri. ASC ou DESC
+     *
+     *      @field string limit
+     *          définit un nombre maximal d'élément dans le résultat
+     *          de la requête
+     *
+     * @return mixed
+     */
+    public function search( $request ) {
+        return $this->dbm->select( $request );
+    }
+
+    /**
+     * Retourne la première réponse trouvée de la recherche effectuée.
+     * @param array $request
+     *  $req est un tableau regroupant différents critères pour construire
+     *  la requête SQL à exécuter.
+     *    Les champs possible pour ce tableau sont :
+     *      @field string fields
+     *          spécifie un champs de la table à selectionner.
+     *
+     *      @field array fields
+     *          spécifie les champs de la table à selectionner.
+     *
+     *      @field array conditions
+     *          spécifie les conditions sur la requête à effectuer.
+     *          Il s'agit d'une suite de AND.
+     *
+     *      @field string conditions
+     *          spécifie les conditions sur la requête à effectuer.
+     *          Il appartient à l'utilisateur de rédiger les conditions
+     *          en SQL.
+     *
+     *      @field string order
+     *          spécifie l'ordre de tri. ASC ou DESC
+     *
+     *      @field string limit
+     *          définit un nombre maximal d'élément dans le résultat
+     *          de la requête
+     *
+     * @return mixed
+     */
+    public function searchOne( $request ) {
+        return $this->dbm->selectFirst( $request );
+    }
+
+    /**
+     * Retourne le nombre d'éléments dans la réponse de select
+     * avec conditions.
+     *
+     * @param $conditions
+     *      @field array conditions
+     *          spécifie les conditions sur la requête à effectuer.
+     *          Il s'agit d'une suite de AND.
+     *
+     *      @field string conditions
+     *          spécifie les conditions sur la requête à effectuer.
+     *          Il appartient à l'utilisateur de rédiger les conditions
+     *          en SQL.
+     * @return mixed
+     */
+    public function count( $conditions ) {
+        return $this->dbm->count( $conditions );
+    }
 }
