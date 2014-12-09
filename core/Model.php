@@ -4,19 +4,18 @@ namespace octopus\core;
  * Class Model
  * @package octopus\core
  *
- * Cette classe permet de gérer les données d'un model.
- * Elle utilise une instance de DataBaseManager afin
- * de pouvoir récupérer le contenu en base de données.
+ * Cette classe permet de gérer les données d'un model. Elle utilise une
+ * instance de DataBaseManager afin de pouvoir récupérer le contenu en base de
+ * données.
  */
 class Model {
     const PRIMARY_KEY = 'id';
     private $dbm;
 
     public function __construct() {
-        /* le nom de la table correspond au nom de la classe.
-         * En effet la classe Model a pour but d'être dérivée.
-         * Les classes filles auront des noms différents et
-         * correspondent aux noms des tables.
+        /* le nom de la table correspond au nom de la classe. En effet la classe
+         * Model a pour but d'être dérivée. Les classes filles auront des noms
+         * différents et correspondent aux noms des tables.
          */
         $this->dbm =
             new DataBaseManager( 'default',
@@ -51,8 +50,8 @@ class Model {
     /**
      * Met à jour les données dans la table courante.
      * @param array $data
-     *  l'incice id doit être nécessairement égal à l'indice
-     * de l'entrée dans la table courante à mettre à jour.
+     *  l'incice id doit être nécessairement égal à l'indice de l'entrée dans la
+     * table courante à mettre à jour.
      * @throws \Exception
      */
     public function update( $data ) {
@@ -65,8 +64,8 @@ class Model {
     /**
      * Retourne un tableau contenant les résultats de la recherche.
      * @param array $request
-     *  $req est un tableau regroupant différents critères pour construire
-     *  la requête SQL à exécuter.
+     *  $request est un tableau regroupant différents critères pour construire
+     * la requête SQL à exécuter.
      *    Les champs possible pour ce tableau sont :
      *      @field string fields
      *          spécifie un champs de la table à selectionner.
@@ -80,15 +79,14 @@ class Model {
      *
      *      @field string conditions
      *          spécifie les conditions sur la requête à effectuer.
-     *          Il appartient à l'utilisateur de rédiger les conditions
-     *          en SQL.
+     *          Il appartient à l'utilisateur de rédiger les conditions en SQL.
      *
      *      @field string order
      *          spécifie l'ordre de tri. ASC ou DESC
      *
      *      @field string limit
-     *          définit un nombre maximal d'élément dans le résultat
-     *          de la requête
+     *          définit un nombre maximal d'élément dans le résultat de la
+     *          requête
      *
      * @return mixed
      */
@@ -99,7 +97,7 @@ class Model {
     /**
      * Retourne la première réponse trouvée de la recherche effectuée.
      * @param array $request
-     *  $req est un tableau regroupant différents critères pour construire
+     *  $request est un tableau regroupant différents critères pour construire
      *  la requête SQL à exécuter.
      *    Les champs possible pour ce tableau sont :
      *      @field string fields
@@ -114,15 +112,14 @@ class Model {
      *
      *      @field string conditions
      *          spécifie les conditions sur la requête à effectuer.
-     *          Il appartient à l'utilisateur de rédiger les conditions
-     *          en SQL.
+     *          Il appartient à l'utilisateur de rédiger les conditions en SQL.
      *
      *      @field string order
      *          spécifie l'ordre de tri. ASC ou DESC
      *
      *      @field string limit
-     *          définit un nombre maximal d'élément dans le résultat
-     *          de la requête
+     *          définit un nombre maximal d'élément dans le résultat de la
+     *          requête
      *
      * @return mixed
      */
@@ -141,8 +138,7 @@ class Model {
      *
      *      @field string conditions
      *          spécifie les conditions sur la requête à effectuer.
-     *          Il appartient à l'utilisateur de rédiger les conditions
-     *          en SQL.
+     *          Il appartient à l'utilisateur de rédiger les conditions en SQL.
      * @return mixed
      */
     public function count( $conditions ) {

@@ -5,11 +5,10 @@ use octopus\Config;
 
 /**
  * Class DataBaseManager
- * @package core
+ * @package octopus\core
  *
- * Cette classe permet de gérer une base de données.
- * Les requêtes sont effectuées à l'aide de PDO.
- * Afin de sécuriser la faille d'injection SQL, les
+ * Cette classe permet de gérer une base de données. Les requêtes sont
+ * effectuées à l'aide de PDO. Afin de sécuriser la faille d'injection SQL, les
  * requêtes sont préparées.
  */
 class DataBaseManager {
@@ -19,10 +18,9 @@ class DataBaseManager {
     private static $connections = array();
 
     /*
-     * L'utilisateur peut utiliser plusieurs serveurs de base
-     * de données et choisir une configuration pour instancier
-     * le manager. Cette configuration est stockée dans cet
-     * attribut.
+     * L'utilisateur peut utiliser plusieurs serveurs de base de données et
+     * choisir une configuration pour instancier le manager. Cette configuration
+     * est stockée dans cet attribut.
      */
     private $conf;
 
@@ -68,8 +66,10 @@ class DataBaseManager {
             return true;
         }
         try {
-            $pdo = new PDO('mysql:host=' . $conf['host'] . ';dbname=' . $conf['database'] . ';',
-                $conf['login'], $conf['password'],
+            $pdo = new PDO(
+                "mysql:host={$conf['host']};dbname={$conf['database']};",
+                $conf['login'],
+                $conf['password'],
                 array( PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8' )
             );
 
@@ -91,7 +91,7 @@ class DataBaseManager {
     /**
      * Retourne un tableau contenant la réponse de la requête select.
      * @param array $request
-     *  $req est un tableau regroupant différents critères pour construire
+     *  $request est un tableau regroupant différents critères pour construire
      *  la requête SQL à exécuter.
      *    Les champs possible pour ce tableau sont :
      *      @field string fields
@@ -106,8 +106,7 @@ class DataBaseManager {
      *
      *      @field string conditions
      *          spécifie les conditions sur la requête à effectuer.
-     *          Il appartient à l'utilisateur de rédiger les conditions
-     *          en SQL.
+     *          Il appartient à l'utilisateur de rédiger les conditions en SQL.
      *
      *      @field string order
      *          spécifie l'ordre de tri. ASC ou DESC
@@ -159,7 +158,7 @@ class DataBaseManager {
         // Ordre de tri du résultat de la requête
         if ( isset( $request['order'] ) ) {
             if ( !is_array( $request['order'])) {
-                $sql .= ' order by `' . $this->primaryKey . '` ' . $request['order'];
+                $sql .= " order by `{$this->primaryKey}` {$request['order']}";
             }
         }
 
@@ -179,7 +178,7 @@ class DataBaseManager {
     /**
      * Retourne la première réponse de la requête select.
      * @param array $request
-     *  $req est un tableau regroupant différents critères pour construire
+     *  $request est un tableau regroupant différents critères pour construire
      *  la requête SQL à exécuter.
      *    Les champs possible pour ce tableau sont :
      *      @field string fields
@@ -194,8 +193,7 @@ class DataBaseManager {
      *
      *      @field string conditions
      *          spécifie les conditions sur la requête à effectuer.
-     *          Il appartient à l'utilisateur de rédiger les conditions
-     *          en SQL.
+     *          Il appartient à l'utilisateur de rédiger les conditions en SQL.
      *
      *      @field string order
      *          spécifie l'ordre de tri. ASC ou DESC
@@ -221,8 +219,7 @@ class DataBaseManager {
      *
      *      @field string conditions
      *          spécifie les conditions sur la requête à effectuer.
-     *          Il appartient à l'utilisateur de rédiger les conditions
-     *          en SQL.
+     *          Il appartient à l'utilisateur de rédiger les conditions en SQL.
      * @return mixed
      */
     public function count( $conditions ) {
@@ -242,8 +239,7 @@ class DataBaseManager {
      *
      *      @field string conditions
      *          spécifie les conditions sur la requête à effectuer.
-     *          Il appartient à l'utilisateur de rédiger les conditions
-     *          en SQL.
+     *          Il appartient à l'utilisateur de rédiger les conditions en SQL.
      */
     public function delete( $conditions ) {
         // Construction de la condition WHERE
