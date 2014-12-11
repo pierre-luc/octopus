@@ -1,5 +1,6 @@
 <?php
 namespace octopus\core;
+use octopus\app\Debug;
 
 class Kernel {
     private static $request;
@@ -79,5 +80,20 @@ class Kernel {
         $controller = new $name( self::$request );
 
         return $controller;
+    }
+
+    /**
+     * Charge la ou les classes passées en paramètre.
+     * @param $classes
+     */
+    public static function loadClasses( $classes ) {
+        if ( is_array( $classes ) ) {
+            foreach ($classes as $clazz ) {
+                self::loadClasses( $clazz );
+            }
+        } else {
+            $file = ROOT . DS . str_replace( '.', DS, $classes ) . '.php';
+            require $file;
+        }
     }
 }
