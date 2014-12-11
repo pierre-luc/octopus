@@ -128,6 +128,7 @@ class Controller {
     public function error404( $message ) {
         header( "HTTP/1.0 404 Not Found" );
         $this->sendVariables( 'message', $message );
+        $this->sendVariables( 'request', $this->request );
         $this->render( '/errors/404' );
         die();
     }

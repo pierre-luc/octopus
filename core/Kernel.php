@@ -68,10 +68,6 @@ class Kernel {
 
         // si le controleur n'existe pas on génère une erreur 404
         if ( !file_exists( $file ) ) {
-            Debug::debug( array(
-                'Le controller ' . self::$request->getControllerName()
-                . ' n\'existe pas', self::$request, true
-            ));
             self::error( 'Le controller ' . self::$request->getControllerName()
                 . ' n\'existe pas'
             );
