@@ -30,6 +30,7 @@ Kernel::loadClasses(array(
     'app.Debug',
     'core.utils.JSONConverter',
     'core.utils.MessageFormatter',
+    'core.DataBaseManager',
     'core.Session',
     'core.Router',
     'core.Model',
