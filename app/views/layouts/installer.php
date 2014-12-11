@@ -10,10 +10,13 @@ use octopus\core\Router;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Loading Bootstrap -->
-    <link href="<?php echo Router::root( 'css/vendor/bootstrap.min.css' );?>" rel="stylesheet">
+    <link href="<?= Router::root( 'css/vendor/bootstrap.min.css' )?>" rel="stylesheet">
 
     <!-- Loading Flat UI -->
-    <link href="<?php echo Router::root( 'css/flat-ui.min.css' );?>" rel="stylesheet">
+    <link href="<?= Router::root( 'css/flat-ui.min.css' )?>" rel="stylesheet">
+
+    <!-- Loading InstallSkin -->
+    <link href="<?= Router::root( 'css/install.css' )?>" rel="stylesheet">
 
     <link rel="shortcut icon" href="<?php echo Router::root( 'img/favicon.ico' );?>">
 
