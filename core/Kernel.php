@@ -51,6 +51,7 @@ class Kernel {
     private static function error( $message ){
         $controller = new Controller( self::$request );
         $controller->setSession( new Session() );
+        $controller->loadMessageFormatter( '404' );
         $controller->error404( $message );
     }
 
@@ -68,7 +69,8 @@ class Kernel {
 
         // si le controleur n'existe pas on génère une erreur 404
         if ( !file_exists( $file ) ) {
-            self::error( 'Le controller ' . self::$request->getControllerName()
+            self::error( 'Le <i>controller</i> <strong>'
+                . self::$request->getControllerName() . '</strong>'
                 . ' n\'existe pas'
             );
         }

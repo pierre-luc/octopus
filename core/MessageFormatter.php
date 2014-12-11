@@ -6,9 +6,6 @@ namespace octopus\core;
  *
  * Cette classe offre la capacité de formatter des informations en HTML et
  * compatible avec le framework CSS Bootstrap.
- *
- * Cette classe peut être dérivée par l'utilisateur afin de créer ses propres
- * message préformatés.
  */
 class MessageFormatter {
     private static $types = array();

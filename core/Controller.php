@@ -122,6 +122,18 @@ class Controller {
     }
 
     /**
+     * Charge un formateur de message.
+     * Les formateurs se trouvent dans le répertoire formatters dans app/views.
+     *
+     * @param $name
+     *  nom du formateur
+     */
+    public function loadMessageFormatter( $name ) {
+        require_once VIEWS . DS . 'formatters' . DS . $name . '.php';
+        return $this;
+    }
+
+    /**
      * Génère une erreur 404 en respectant le protocol HTTP.
      * @param $message
      */

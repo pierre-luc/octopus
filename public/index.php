@@ -26,6 +26,7 @@ define( 'CONTROLLERS', APP . DS . 'controllers' );
 require CORE . DS . 'Kernel.php';
 Kernel::loadClasses(array(
     'app.Debug',
+    'core.MessageFormatter',
     'core.Session',
     'core.Router',
     'core.Model',
