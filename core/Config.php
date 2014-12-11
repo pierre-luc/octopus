@@ -13,6 +13,7 @@ use octopus\core\Router;
 class Config {
     static $databases = null;
     private static $parameters;
+    private static $appname = 'Octopus';
 
     public static function loadParameters() {
         self::$parameters =
@@ -35,6 +36,10 @@ class Config {
             Router::map( $target, $url );
         }
         return true;
+    }
+
+    public static function getAppName() {
+        return self::$appname;
     }
 }
 
