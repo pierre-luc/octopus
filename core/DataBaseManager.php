@@ -66,19 +66,19 @@ class DataBaseManager {
             return true;
         }
         try {
-            $pdo = new PDO(
+            $pdo = new \PDO(
                 "mysql:host={$conf['host']};dbname={$conf['database']};",
                 $conf['login'],
-                $conf['password'],
-                array( PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8' )
+                $conf['pass'],
+                array( \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8' )
             );
 
-            $pdo->setAttribute( PDO::ATTR_ERRMODE, Debug::$pdoDebugMode );
+            $pdo->setAttribute( \PDO::ATTR_ERRMODE, Debug::$pdoDebugMode );
 
             DataBaseManager::$connections[ $this->conf ] = $pdo;
             $this->db = $pdo;
 
-        } catch( PDOException $e) {
+        } catch( \PDOException $e) {
             if ( Debug::$debug >= 1 ) {
                 die( $e->getMessage() );
             } else {
@@ -169,7 +169,7 @@ class DataBaseManager {
         try {
             $pre = $this->db->prepare( $sql );
             $pre->execute();
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             Debug::debug($e);
         }
         return $pre->fetchAll( PDO::FETCH_OBJ );
@@ -304,7 +304,7 @@ class DataBaseManager {
         try {
             $pre = $this->db->prepare( $sql );
             $pre->execute( $d );
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             Debug::debug($e);
         }
 
@@ -313,5 +313,15 @@ class DataBaseManager {
             $this->id = $this->db->lastInsertId();
         }
         return true;
+    }
+
+    public static function execute( $sql, $dbconf = 'default' ) {
+        // todo Refaire la gestion de la base donnée avec cette classe
+        // en effet l'approche qui suit n'est pas du tout propre.
+
+        // provoque plusieurs connexion et instanciation via PDO
+        $dnm = new DataBaseManager( $dbconf, null );
+        $pre = $dnm->db;
+        return $pre->exec( $sql ) === 0;
     }
 }
