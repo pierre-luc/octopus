@@ -10,11 +10,41 @@ namespace octopus\core;
  * associatif en chaîne de caractères au format JSON.
  */
 class JSONConvertor {
+    /**
+     * Converti une chaîne de caractères au format JSON en tableau associatif.
+     * @param $text
+     * @return mixed
+     */
     public static function textToJSON( $text ) {
         return json_decode( $text, true );
     }
 
+    /**
+     * Converti un tableau associatif en chaîne de caractères au format JSON.
+     * @param $json
+     * @return string
+     */
     public static function JSONToText( $json ) {
         return json_encode( $json );
+    }
+
+    /**
+     * Lit un fichier JSON et retourne un tableau associatif.
+     * @param $file
+     * @return mixed
+     */
+    public static function parseFile( $file ) {
+        if ( !file_exists( $file ) ) {
+            return null;
+        }
+        $f = fopen( $file, 'r' );
+        $r = array();
+        $t = "";
+        while ( ($line = fgets( $f )) != null ) {
+            $t .= $line;
+        }
+        $t = preg_replace( "/(\\s|\\n)/", "", $t );
+        fclose( $f );
+        return self::textToJSON( $t );
     }
 }
