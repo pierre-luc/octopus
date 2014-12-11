@@ -196,4 +196,12 @@ class Controller {
     protected function setLayout( $layout ) {
         $this->layout = $layout;
     }
+
+    /**
+     * Retourne les données transmises par la requête.
+     * @return bool|\stdClass
+     */
+    public function getData() {
+        return $this->request->getData();
+    }
 }
