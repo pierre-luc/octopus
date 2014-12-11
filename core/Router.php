@@ -2,6 +2,13 @@
 namespace octopus\core;
 use octopus\app\Debug;
 
+/* Constante permettant représentant la racine virtuelle de l'application.
+ */
+define( 'URL_ROOT',
+    (isset($_SERVER['SERVER_NAME']) && ($_SERVER['SERVER_NAME'] != 'localhost'))
+    ? $_SERVER['SERVER_NAME']
+    : dirname( dirname( $_SERVER[ 'SCRIPT_NAME' ] ) )
+);
 /**
  * Class Router
  * @package octopus\core
@@ -26,6 +33,7 @@ use octopus\app\Debug;
  */
 class Router{
     private static $lowerAlphaNumeric = "[a-z0-9]";
+
     /*
      * Mémorise toutes les routes à parser
      */
@@ -110,7 +118,7 @@ class Router{
      *  lisible du lien de l'article. Il est constitué de chiffres et de lettres
      *  miniscules ainsi que de traits d'unions uniquement.
      */
-    static function associate($alias, $url){
+    static function map($alias, $url){
         // construction de la route alias <-> url
         $r = array();
         $r[ 'params' ] = array(); // mémorise les paramètres de l'url
@@ -131,7 +139,7 @@ class Router{
          * Voir exemple 4 sur http://php.net/manual/fr/function.preg-match.php
          */
         $regex = preg_replace( '/(' . self::$lowerAlphaNumeric . '+):([^\/]+)/',
-                               '${1}:(?P<${1}>${2})',
+                               '(?P<${1}>${2})',
                                $url
         );
 
@@ -213,5 +221,59 @@ class Router{
         $r[ 'target' ] = $target;
 
         self::$mapping[] = $r;
+    }
+
+    /**
+     * Génère une URL de routage à partir d'une URL MVC
+     * @param string $url
+     *  URL MVC
+     * @return string
+     *  URL de routage
+     */
+    static function generate( $url = '' ){
+        // émondage de la chaîne de caractères
+        trim( $url, '/' );
+
+        /* Parcours de la liste des routes enregistrées afin de trouver une
+         * route correspondante à l'url mvc passée en paramètre.
+         *
+         * Si une route est trouvée alors elle est traduite en url de routage.
+         */
+        foreach( self::$mapping as $route ){
+            if( preg_match( $route[ 'regex_realurl' ], $url, $match ) ){
+                // route trouvée
+
+                /* url de routage abstraite
+                 * Les paramètres sont seulement nommés.
+                 */
+                $url = $route[ 'target' ];
+
+                /* Remplacement des noms de paramètres par leurs valeurs.
+                 */
+                foreach( $match as $name => $value ){
+                    $url = str_replace( ":$name:", $value, $url );
+                }
+            }
+        }
+
+        // construction de l'url de routage
+        $url = URL_ROOT . '/' . $url;
+
+        // encodage de l'url
+        $frags = explode( '/', $url );
+        foreach ( $frags as $f => $value ) {
+            $frags[ $f ] = urlencode( $value );
+        }
+        return 'http://' . implode('/', $frags);
+    }
+
+    /**
+     * Préfixe l'url mvc ou de routage avec l'url racine de l'application.
+     * @param $url
+     * @return string
+     */
+    static function root( $url ){
+        trim( $url, '/' );
+        return 'http://' . URL_ROOT . '/' . $url;
     }
 }
