@@ -37,7 +37,6 @@ Kernel::loadClasses(array(
     'core.Request',
     'core.Controller'
 ));
-Config::routemap();
-Debug::debug( Router::generate( 'articles/view/33/montitre' ) );
+Config::loadParameters();
 Kernel::run();
 
