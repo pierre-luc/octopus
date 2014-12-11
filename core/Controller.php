@@ -17,8 +17,8 @@ class Controller {
     private $layout = 'default';
     private $rendered = false;
     private $models = array();
+    private $session;
 
-    
     function __construct( Request $request = null ) {
         $this->session = new Session();
         if ( $request ) {
@@ -164,5 +164,13 @@ class Controller {
         }
 
         header( "Location: " . Router::url( $url ) );
+    }
+
+    /**
+     * Enregistre une session dans controleur.
+     * @param Session $session
+     */
+    public function setSession( Session $session ) {
+        $this->session = $session;
     }
 }
