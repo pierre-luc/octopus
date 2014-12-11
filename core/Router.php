@@ -2,13 +2,6 @@
 namespace octopus\core;
 use octopus\app\Debug;
 
-/* Constante permettant représentant la racine virtuelle de l'application.
- */
-define( 'URL_ROOT',
-    (isset($_SERVER['SERVER_NAME']) && ($_SERVER['SERVER_NAME'] != 'localhost'))
-    ? $_SERVER['SERVER_NAME']
-    : dirname( dirname( $_SERVER[ 'SCRIPT_NAME' ] ) )
-);
 /**
  * Class Router
  * @package octopus\core
