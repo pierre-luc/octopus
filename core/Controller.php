@@ -1,6 +1,7 @@
 <?php
 namespace octopus\core;
 use octopus\app\Debug;
+use octopus\Config;
 
 /**
  * Class Controller
@@ -59,6 +60,7 @@ class Controller {
          *
          * $myvar == 42
          */
+        $this->sendVariables( 'appname', Config::getAppName() );
         extract( $this->variables );
 
         // génération du chemin complet de la vue à charger
@@ -68,7 +70,6 @@ class Controller {
             $view = VIEWS . DS
                 . $this->request->getControllerName() . DS . $view . '.php';
         }
-
         // chargement de la vue
         ob_start();                           // on ouvre le buffer
         require $view;                      // la vue est chargée dans le buffer
