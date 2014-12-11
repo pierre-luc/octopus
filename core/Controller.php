@@ -1,5 +1,6 @@
 <?php
 namespace octopus\core;
+use octopus\app\Debug;
 
 /**
  * Class Controller
@@ -62,9 +63,9 @@ class Controller {
 
         // génération du chemin complet de la vue à charger
         if ( strpos( $view, '/' ) === 0 ) {
-            $view = VIEWS . DS . $view . '.php';
+            $view = VIEWS . $view . '.php';
         } else {
-            $view = VIEWS . DS
+            $view = VIEWS
                 . $this->request->getControllerName() . DS . $view . '.php';
         }
 
