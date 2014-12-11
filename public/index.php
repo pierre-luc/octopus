@@ -1,6 +1,8 @@
 <?php
 namespace octopus;
+use octopus\app\Debug;
 use octopus\core\Kernel;
+use octopus\core\Router;
 
 /* D'un système à l'autre les séparateurs ne sont pas les mêmes. Cette constante
  * permte d'assurer une écriture correcte des chemins d'accès aux fichiers.
@@ -30,8 +32,11 @@ Kernel::loadClasses(array(
     'core.Session',
     'core.Router',
     'core.Model',
-    'Config',
+    'core.Config',
     'core.Request',
     'core.Controller'
 ));
+Config::routemap();
+Debug::debug( Router::generate( 'articles/view/33/montitre' ) );
 Kernel::run();
+

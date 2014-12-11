@@ -1,6 +1,8 @@
 <?php
 namespace octopus\core;
 use octopus\app\Debug;
+use octopus\app\controllers;
+use octopus\Config;
 
 class Kernel {
     private static $request;
@@ -23,7 +25,7 @@ class Kernel {
             $action,
             array_diff(
                 get_class_methods( $controller ),
-                get_class_methods( 'Controller' )
+                get_class_methods( 'octopus\core\Controller' )
             )
         );
         if ( !$found ) { // on retourne une erreur si l'action n'est pas trouvée
@@ -77,7 +79,7 @@ class Kernel {
 
         // chargement du controleur
         require $file;
-
+        $name = '\octopus\app\controllers\\' . $name;
         $controller = new $name( self::$request );
 
         return $controller;

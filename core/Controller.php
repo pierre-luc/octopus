@@ -65,7 +65,7 @@ class Controller {
         if ( strpos( $view, '/' ) === 0 ) {
             $view = VIEWS . $view . '.php';
         } else {
-            $view = VIEWS
+            $view = VIEWS . DS
                 . $this->request->getControllerName() . DS . $view . '.php';
         }
 
@@ -186,5 +186,14 @@ class Controller {
      */
     public function setSession( Session $session ) {
         $this->session = $session;
+    }
+
+    /**
+     * Permet de changer la layout par défaut depuis une classe dérivée.
+     * @param $layout
+     *  nom du layout
+     */
+    protected function setLayout( $layout ) {
+        $this->layout = $layout;
     }
 }
