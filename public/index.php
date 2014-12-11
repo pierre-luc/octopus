@@ -18,6 +18,8 @@ define( 'URL_ROOT',
 // les constantes suivantes sont des raccourcis
 define( 'APP', ROOT . DS . 'app' );
 define( 'CORE', ROOT . DS . 'core' );
-define( 'VIEWS', ROOT . DS . 'views' );
-define( 'MODELS', ROOT . DS . 'models' );
-define( 'CONTROLLERS', ROOT . DS . 'controllers' );
+define( 'VIEWS', APP . DS . 'views' );
+define( 'MODELS', APP . DS . 'models' );
+define( 'CONTROLLERS', APP . DS . 'controllers' );
+
+Kernel::run();
