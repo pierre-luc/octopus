@@ -1,5 +1,6 @@
 <?php
 namespace octopus;
+use octopus\core\Kernel;
 
 /* D'un système à l'autre les séparateurs ne sont pas les mêmes. Cette constante
  * permte d'assurer une écriture correcte des chemins d'accès aux fichiers.
@@ -22,4 +23,14 @@ define( 'VIEWS', APP . DS . 'views' );
 define( 'MODELS', APP . DS . 'models' );
 define( 'CONTROLLERS', APP . DS . 'controllers' );
 
+require CORE . DS . 'Kernel.php';
+Kernel::loadClasses(array(
+    'app.Debug',
+    'core.Session',
+    'core.Router',
+    'core.Model',
+    'Config',
+    'core.Request',
+    'core.Controller'
+));
 Kernel::run();
