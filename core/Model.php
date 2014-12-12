@@ -1,5 +1,7 @@
 <?php
 namespace octopus\core;
+use octopus\app\Debug;
+
 /**
  * Class Model
  * @package octopus\core
@@ -17,9 +19,12 @@ class Model {
          * Model a pour but d'être dérivée. Les classes filles auront des noms
          * différents et correspondent aux noms des tables.
          */
+        $name = strtolower( get_class( $this ) ) . 's';
+        $path = explode( '\\', $name );
+        $name = $path[ sizeof( $path ) - 1 ];
         $this->dbm =
             new DataBaseManager( 'default',
-                strtolower( get_class( $this ) ) . 's',
+                $name,
                 self::PRIMARY_KEY);
     }
 
