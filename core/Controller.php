@@ -118,7 +118,8 @@ class Controller {
 
         // stockage de l'instance du model
         if ( !isset( $this->models[ $name ] ) ) {
-            $this->models[ $name ] = new $name();
+            $className = 'octopus\app\models\\' . $name;
+            $this->models[ $name ] = new $className();
         }
     }
 
