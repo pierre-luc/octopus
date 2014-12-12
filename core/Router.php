@@ -44,6 +44,11 @@ class Router{
         $url = trim( $url, '/' );
         if( empty( $url ) ){
             // si l'url est vide nous prenons la première enregistrée
+            if ( !isset( Router::$mapping[ 0 ] ) ) {
+                Kernel::error( "Votre routage n'est pas initialisé.\n"
+                    . "Veuillez créer une route pour la racine /"
+                );
+            }
             $url = Router::$mapping[ 0 ][ 'url' ];
         } else {
             $matched = false; // aucune route n'a été trouvée
