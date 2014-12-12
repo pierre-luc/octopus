@@ -58,13 +58,23 @@ class Model {
 
     /**
      * Met à jour les données dans la table courante.
-     * @param array $data
+     * @param array|stdClass $data
      *  l'incice id doit être nécessairement égal à l'indice de l'entrée dans la
      * table courante à mettre à jour.
      * @throws \Exception
      */
     public function update( $data ) {
-        if ( !isset( $data[ 'id' ] ) ) {
+        if ( is_array( $data ) ) {
+            if ( !isset( $data[ 'id' ] ) ) {
+                throw new \Exception( "Aucune clé primaire trouvée." );
+            }
+            $d = new \stdClass();
+            foreach( $data as $k => $v ) {
+                $d->$k = $v;
+            }
+            $data = $d;
+        }
+        if ( gettype( $data ) == 'stdClass' && !isset( $data->id ) ) {
             throw new \Exception( "Aucune clé primaire trouvée." );
         }
         $this->dbm->save( $data );
