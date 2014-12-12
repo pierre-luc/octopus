@@ -211,7 +211,7 @@ class Controller {
      * Permet de récupérer un model via son nom.
      * Retourne l'instance du model en question, null s'il n'a pas été chargé.
      * @param $name
-     * @return mixed
+     * @return Model
      */
     public function getModel( $name ) {
         return isset( $this->models[ $name ] ) ? $this->models[ $name ] : null;
