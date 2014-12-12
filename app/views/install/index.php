@@ -19,17 +19,17 @@ use octopus\core\Router;
             <form action="<?= Router::generate( 'install/database' );?>" method="post">
 
                 <div class="form-group">
-                    <input name="dbname" type="text" class="form-control login-field" value="" placeholder="Nom de la base de données" id="login-name">
+                    <input name="dbname" type="text" class="form-control login-field" value="<?= isset($dbname)?$dbname:'' ?>" placeholder="Nom de la base de données" id="login-name">
                     <label class="login-field-icon fui-list" for="login-name"></label>
                 </div>
 
                 <div class="form-group">
-                    <input name="hostname" type="text" class="form-control login-field" value="" placeholder="Hôte de la base de données" id="login-host">
+                    <input name="hostname" type="text" class="form-control login-field" value="<?= isset($hostname)?$hostname:'' ?>" placeholder="Hôte de la base de données" id="login-host">
                     <label class="login-field-icon fui-link" for="login-host"></label>
                 </div>
 
                 <div class="form-group">
-                    <input name="login" type="text" class="form-control login-field" value="" placeholder="Identifiant" id="login-login">
+                    <input name="login" type="text" class="form-control login-field" value="<?= isset($login)?$login:'' ?>" placeholder="Identifiant" id="login-login">
                     <label class="login-field-icon fui-user" for="login-login"></label>
                 </div>
 

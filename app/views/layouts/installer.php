@@ -27,13 +27,15 @@ use octopus\core\Router;
     <![endif]-->
 </head>
 <body>
-<div class="container">
-    <?= $content_for_layout ?>
-</div>
-<!-- /.container -->
 
 <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
 <script src="<?php echo Router::root( 'js/vendor/jquery.min.js' );?>"></script>
+
+<!-- /.container -->
+<div class="container">
+    <?= $content_for_layout ?>
+</div>
+
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="<?php echo Router::root( 'js/vendor/video.js' );?>"></script>
 <script src="<?php echo Router::root( 'js/flat-ui.min.js' );?>"></script>
