@@ -1,6 +1,7 @@
 <?php
 namespace octopus\core;
 use octopus\app\Debug;
+use octopus\core\utils\MessageFormatter;
 
 /**
  * Class Session
