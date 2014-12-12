@@ -173,7 +173,6 @@ class DataBaseManager {
         if ( isset( $request['limit'] ) ) {
             $sql .= ' LIMIT ' . $request['limit'] ;
         }
-        Debug::debug($sql);
         try {
             $pre = $this->db->prepare( $sql );
             $pre->execute();
