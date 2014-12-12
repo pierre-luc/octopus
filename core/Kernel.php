@@ -44,13 +44,13 @@ class Kernel {
         $controller->render( $action );
     }
 
-    /*
+    /**
      * Génére une erreur 404 avec un message personnalisé.
      *
      * @param string $message
      *  message de l'erreur
      */
-    private static function error( $message ){
+    public static function error( $message ){
         $controller = new Controller( self::$request );
         $controller->setSession( new Session() );
         $controller->loadMessageFormatter( '404' );
