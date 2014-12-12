@@ -1,6 +1,6 @@
 <?php
 namespace octopus\app\views\formatters;
-use octopus\core\MessageFormatter;
+use octopus\core\utils\MessageFormatter;
 use octopus\app\Debug;
 use octopus\core\Router;
 /*

@@ -1,7 +1,7 @@
 <?php
 namespace octopus\app\views\errors;
 use octopus\app\Debug;
-use octopus\core\MessageFormatter;
+use octopus\core\utils\MessageFormatter;
 use octopus\core\Router;
 
 ?>
