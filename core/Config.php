@@ -13,13 +13,13 @@ use octopus\core\Router;
 class Config {
     static $databases = null;
     private static $parameters;
+    private static $routes;
     private static $appname = 'Octopus';
 
     public static function loadParameters() {
         self::$parameters =
             JSONConvertor::parseFile( APP . DS . 'parameters.json' );
         self::loadDatabasesConfig();
-        self::loadRouteMap();
     }
 
     private static function loadDatabasesConfig() {
@@ -28,10 +28,12 @@ class Config {
         return true;
     }
 
-    private static function loadRouteMap() {
-        if ( !isset( self::$parameters[ 'routes' ] ) ) { return false; }
+    public static function loadRouteMap() {
+        self::$routes =
+            JSONConvertor::parseFile( APP . DS . 'routes.json' );
+        if ( self::$routes == null ) { return false; }
 
-        $map = self::$parameters[ 'routes' ];
+        $map = self::$routes;
         foreach( $map as $target => $url ) {
             Router::map( $target, $url );
         }
@@ -41,8 +43,4 @@ class Config {
     public static function getAppName() {
         return self::$appname;
     }
-}
-
-if ( file_exists( ROOT . DS . 'config.inc.php' ) ) {
-    require_once APP . DS . 'params' . DS . 'config.inc.php';
 }

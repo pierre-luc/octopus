@@ -39,5 +39,6 @@ Kernel::loadClasses(array(
     'core.Controller'
 ));
 Config::loadParameters();
+Config::loadRouteMap();
 Kernel::run();
 
