@@ -315,6 +315,13 @@ class DataBaseManager {
         return true;
     }
 
+    /**
+     * Exécute une requête sql.
+     * Retourne true si la requête s'est bien passée, false sinon.
+     * @param $sql
+     * @param string $dbconf
+     * @return bool
+     */
     public static function execute( $sql, $dbconf = 'default' ) {
         // todo Refaire la gestion de la base donnée avec cette classe
         // en effet l'approche qui suit n'est pas du tout propre.
@@ -322,6 +329,11 @@ class DataBaseManager {
         // provoque plusieurs connexion et instanciation via PDO
         $dnm = new DataBaseManager( $dbconf, null );
         $pre = $dnm->db;
-        return $pre->exec( $sql ) === 0;
+        try {
+            $pre->exec( $sql );
+            return true;
+        } catch ( \PDOException $e ) {
+            return false;
+        }
     }
 }

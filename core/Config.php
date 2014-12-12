@@ -1,6 +1,6 @@
 <?php
 namespace octopus;
-use octopus\core\JSONConvertor;
+use octopus\core\utils\JSONConvertor;
 use octopus\core\Router;
 
 /**

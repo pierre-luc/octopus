@@ -1,5 +1,5 @@
 <?php
-namespace octopus\core;
+namespace octopus\core\utils;
 /**
  * Class MessageFormatter
  * @package octopus\core

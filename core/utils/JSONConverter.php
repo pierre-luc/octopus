@@ -1,5 +1,5 @@
 <?php
-namespace octopus\core;
+namespace octopus\core\utils;
 
 /**
  * Class JSONConvertor
