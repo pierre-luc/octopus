@@ -146,10 +146,17 @@ class DataBaseManager {
             } else { // sinon on traite les informations du tableau
                 $conditions = array();
                 foreach ( $request['conditions'] as $key => $value) {
-                    if ( !is_numeric( $value ) ) {
+                    if ( !is_numeric( $value ) && !is_array( $value ) ) {
                         $value = '"' . mysql_real_escape_string( $value ) . '"';
                     }
-                    $conditions[] = "`" . $key . "`" . "=" . $value;
+                    $op = '=';
+                    $val = $value;
+
+                    if ( is_array( $value ) ) {
+                        $op = $value[ 0 ];
+                        $val = $value[ 1 ];
+                    }
+                    $conditions[] = "`" . $key . "`" . "$op" . $val;
                 }
                 $sql .= implode( ' AND ', $conditions );
             }
@@ -166,13 +173,14 @@ class DataBaseManager {
         if ( isset( $request['limit'] ) ) {
             $sql .= ' LIMIT ' . $request['limit'] ;
         }
+        Debug::debug($sql);
         try {
             $pre = $this->db->prepare( $sql );
             $pre->execute();
         } catch (\PDOException $e) {
             Debug::debug($e);
         }
-        return $pre->fetchAll( PDO::FETCH_OBJ );
+        return $pre->fetchAll( \PDO::FETCH_OBJ );
     }
 
     /**
@@ -245,7 +253,7 @@ class DataBaseManager {
         // Construction de la condition WHERE
         if ( isset( $conditions ) ) {
             // si la conditions est une chaîne de caractères
-            if ( is_array( $conditions ) ) {
+            if ( !is_array( $conditions ) ) {
                 $sql = $conditions;
             } else { // sinon on traite les informations du tableau
                 $sql = array();
@@ -255,7 +263,7 @@ class DataBaseManager {
                     }
                     $sql[] = "`" . $key . "`" . "=" . $value;
                 }
-                $sql = implode( ' AND ', $conditions );
+                $sql = implode( ' AND ', $sql );
             }
         }
         //todo requête préparée pour la suppression
