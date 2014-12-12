@@ -29,12 +29,16 @@ class Model {
     }
 
     /**
-     * Supprime une entrée de la table courante en fonction de son token.
-     * @param $token
+     * Supprime une entrée de la table courante en fonction du nom du champs
+     * ainsi que de sa valeur
+     * @param $key
+     *  nom du champs
+     * @param $value
+     *  valeur dont le champs doit être égal pour effectuer la suppression
      */
-    public function delete( $token ) {
+    public function delete( $key, $value ) {
         $this->dbm->delete( array(
-            'token' => $token
+            $key => $value
         ) );
     }
 
