@@ -43,6 +43,15 @@ class JSONConvertor {
         while ( ($line = fgets( $f )) != null ) {
             $t .= $line;
         }
+        // suppression des commentaires de ligne
+        $t = preg_replace( '/\/\/.*$/', "", $t);
+
+        // suppression des commantaires de block
+        $t = preg_replace(
+            '/((?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:\/\/.*))/', "", $t
+        );
+
+        // suppression des espaces et retours à la ligne
         $t = preg_replace( "/(\\s|\\n)/", "", $t );
         fclose( $f );
         return self::textToJSON( $t );
